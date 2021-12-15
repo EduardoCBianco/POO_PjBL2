@@ -70,7 +70,7 @@ public class Principal {
 					break;
 	
 					case 1:
-					//cadastrarItem();
+					cadastrarItem();
 					
 					break;
 					
@@ -110,13 +110,113 @@ public class Principal {
 				} while(opcao != 0);
 		}
 
-		private static void cadastrarAmigo(){
+	private static void cadastrarAmigo(){
 			int idAmigo;
 			System.out.print("\nNome do amigo a ser adicionado: ");
 
 			scanner.nextLine();
 			String novoAmigo = scanner.nextLine();
 			idAmigo = amigos.addAmigo(novoAmigo);
-			System.out.println("\n" + novoAmigo + " foi adicionado na lista de amigos com o id: " + idAmigo);
+			System.out.println("\n" + novoAmigo + " foi adicionado na lista de amigos com o id: " + idAmigo + "\n");
 		}
+
+	private static int cadastrarItem(){
+		String tituloItem;
+		int idItem;
+		int escolhaItem;
+		
+		do {
+			System.out.print("\nEscolha qual tipo deseja cadastrar: ");
+			System.out.print("\n0 - Cancelar");
+			System.out.print("\n1 - Livro");
+			System.out.print("\n2 - Filme");
+			System.out.print("\n3 - Album de Musica\n");
+			System.out.print("Opcao: ");
+
+			scanner.nextLine();
+			escolhaItem = scanner.nextInt();
+
+			switch (escolhaItem) {
+				case 0:
+				System.out.print("\nRetornando ao menu principal.\n");
+					break;
+
+				case 1:
+				System.out.print("\nTitulo do livro: ");
+				scanner.nextLine();
+				tituloItem = scanner.nextLine();
+
+				idItem = bib.addItem(escolhaItem, tituloItem);
+				
+				System.out.print("\nNome do autor do livro: ");
+				String autorLivro = scanner.nextLine();
+
+				System.out.print("\nNumero de paginas do livro: ");
+				int totPagLivro = scanner.nextInt();
+				EspecificarLivro(idItem-1, autorLivro, totPagLivro);
+				System.out.print("\nLivro adicionado com sucesso! \n");
+					return idItem;
+
+				case 2:
+				System.out.print("\nTitulo do Filme: ");
+				scanner.nextLine();
+				tituloItem = scanner.nextLine();
+				idItem = bib.addItem(escolhaItem, tituloItem);
+				
+				System.out.print("\nDiretor do filme: ");
+				String filme = scanner.nextLine();
+
+				System.out.print("\nAno do lancamendo do filme: ");
+				int anoFilme = scanner.nextInt();
+				EspecificarFilme(idItem-1, filme, anoFilme);
+				System.out.print("\nFilme adicionado com sucesso! \n");
+					return idItem;
+
+				case 3:
+				System.out.print("\nTitulo do Album: ");
+				scanner.nextLine();
+				tituloItem = scanner.nextLine();
+				idItem = bib.addItem(escolhaItem, tituloItem);
+				
+				System.out.print("\nBanda ou compositor: ");
+				String banda = scanner.nextLine();
+
+				System.out.print("\nAno do lancamendo do album: ");
+				int anoAlbum = scanner.nextInt();
+				EspecificarAlbumMusica(idItem-1, banda, anoAlbum);
+
+				System.out.print("\nAlbum adicionado com sucesso! \n");
+					return idItem;
+			
+				default:
+				System.out.println("Opcao invalida.");
+
+					break;
+			}
+		} while (escolhaItem != 0);
+
+		return 0;
+
+	}
+	
+	private static void EspecificarAlbumMusica(int idItem, String banda, int ano){
+		AlbumMusica albumMusica = (AlbumMusica) bib.getAlItem().get(idItem);
+		albumMusica.setAno(ano);
+		albumMusica.setBanda(banda);
+		
+	}
+	private static void EspecificarFilme(int idItem, String diretor, int ano){
+		Filme filme = (Filme) bib.getAlItem().get(idItem);
+		filme.setAno(ano);
+		filme.setDiretor(diretor);
+
+	}
+	private static void EspecificarLivro(int idItem, String autorLivro, int totPagLivro){
+		Livro livro = (Livro) bib.getAlItem().get(idItem);
+		livro.setAutorLivro(autorLivro);
+		livro.setTotPagLivro(totPagLivro);
+
+	}
+
 }
+
