@@ -1,5 +1,5 @@
 package Amigo;
-public class Amigo {
+public class Amigo implements Comparable<Amigo> {
 	
 	private int idAmigo;
 	private String nomeAmigo;
@@ -28,7 +28,12 @@ public class Amigo {
 
 	@Override
 	public String toString() {
-		return "Amigo [idAmigo=" + idAmigo + ", nomeAmigo=" + nomeAmigo + "]";
+		return nomeAmigo + " - " + "ID = " + idAmigo;
+	}
+
+	@Override
+	public int compareTo(Amigo amigo) {
+		return this.nomeAmigo.toUpperCase().compareTo(amigo.getNomeAmigo().toUpperCase());
 	}
 
 }

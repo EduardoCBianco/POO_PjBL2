@@ -33,5 +33,8 @@ public class AlbumMusica extends Item {
 		this.ano = ano;
 	}
 
+    public String getName() {
+        return "Album de Musica";
+    }
 
 }

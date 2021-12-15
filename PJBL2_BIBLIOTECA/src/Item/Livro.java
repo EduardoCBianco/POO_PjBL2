@@ -32,5 +32,8 @@ public class Livro extends Item {
 		this.totPagLivro = totPagLivro;
 	}
 
+    public String getName() {
+        return "Livro";
+    }
 
 }

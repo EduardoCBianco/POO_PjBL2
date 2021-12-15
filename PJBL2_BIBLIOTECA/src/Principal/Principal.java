@@ -1,6 +1,8 @@
 package Principal;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 import Amigo.*;
@@ -25,6 +27,12 @@ public class Principal {
 
 		idAmigo = amigos.addAmigo("Ciclano");
 		System.out.println("Adicionado com codigo " + idAmigo);
+
+		idAmigo = amigos.addAmigo("Junin");
+		System.out.println("Adicionado com codigo " + idAmigo);
+
+		EspecificarLivro(bib.addItem(1, "Dom Casmurro")-1, "Machado de Assis", 210);
+		EspecificarAlbumMusica(bib.addItem(3, "Summer Eletrohits")-1, "Som Livre", 2005);
 
 		ArrayList<Amigo> alAmigos = amigos.getListaAmigos();
 		for (Amigo amigo : alAmigos) {
@@ -80,8 +88,20 @@ public class Principal {
 					break;
 	
 					case 3:
-					//emprestarItem();
+					System.out.println("\nLista de itens cadastrados na biblioteca ");
+					ListarItens();
+					System.out.println("\nDigite o ID do item que deseja emprestar: ");				
+					System.out.print("Opcao: ");
+					int idItem = scanner.nextInt();
+
+					ListarAmigos();
+					System.out.println("\nDigite o ID do amigo para qual deseja emprestar: ");				
+					System.out.print("Opcao: ");
 					
+					int idAmigo = scanner.nextInt();
+					emprestarItem(idAmigo, idItem);
+
+
 					break;
 	
 					case 4:
@@ -108,15 +128,18 @@ public class Principal {
 						System.out.println("Opcao invalida.");
 				}
 				} while(opcao != 0);
+				ArrayList<Amigo> alAmigos = amigos.getListaAmigos();
+				for (Amigo amigo : alAmigos) {
+					System.out.println(amigo);
+				}
 		}
 
 	private static void cadastrarAmigo(){
-			int idAmigo;
 			System.out.print("\nNome do amigo a ser adicionado: ");
 
 			scanner.nextLine();
 			String novoAmigo = scanner.nextLine();
-			idAmigo = amigos.addAmigo(novoAmigo);
+			int idAmigo = amigos.addAmigo(novoAmigo);
 			System.out.println("\n" + novoAmigo + " foi adicionado na lista de amigos com o id: " + idAmigo + "\n");
 		}
 
@@ -218,5 +241,27 @@ public class Principal {
 
 	}
 
+	private static void ListarAmigos(){
+		
+		for (Amigo amigo : amigos.getListaAmigos()) {
+			System.out.println("   " + amigo.getNomeAmigo() + " ( ID = " + amigo.getIdAmigo() + " )" );
+		}
+
+	}
+
+	private static void ListarItens(){
+		
+		for (Item item : bib.getAlItem()) {
+			System.out.println(item.getName() + " - " + item.getTituloItem() + " ( ID = " + item.getIdItem() + " )" + " { Situacao = " + item.getDispItem() + " }");
+		}
+
+	}
+
+	private static void emprestarItem(int idAmigo, int idItem){
+		if(bib.getAlItem().get(idItem).getDispItem() == Disponibilidade.DISPONIVEL ){
+			
+		}
+
+	}
 }
 

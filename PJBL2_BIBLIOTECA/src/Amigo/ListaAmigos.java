@@ -1,5 +1,7 @@
 package Amigo;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class ListaAmigos {
 
@@ -21,6 +23,10 @@ public class ListaAmigos {
 	public ArrayList<Amigo> getListaAmigos(){
 		return alAmigos;
 	}
+
+
+	
+
 	// getters e setters
 	// toString
 

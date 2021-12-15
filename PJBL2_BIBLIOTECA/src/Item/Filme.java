@@ -32,6 +32,8 @@ public class Filme extends Item {
         this.ano = ano;
     }
 
-
+    public String getName() {
+        return "Filme";
+    }
 
 }
