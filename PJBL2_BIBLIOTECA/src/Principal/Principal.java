@@ -309,9 +309,10 @@ public class Principal {
 			System.out.print("\n Digite o código do item que deseja alterar o estado: \n");
 			ListarItens();
 			// scanner.nextInt();
-			escolhaCod = scanner.nextInt() - 1;
+			escolhaCod = scanner.nextInt();
 			System.out.print("\n Escolha a disponibilidade: \n1 - CONSULTALOCAL  \n2 - DANIFICADO \n3 - EXTRAVIADO \n");
-			Disponibilidade disponibilidade = bib.getAlItemSorted().get(escolhaCod).getDispItem();
+			Disponibilidade disponibilidade = bib.getAlItem().get(escolhaCod-1).getDispItem();
+			
 			// scanner.nextInt();
 			escolhaDisponibilidade = scanner.nextInt();
 			switch(escolhaDisponibilidade){
@@ -331,7 +332,8 @@ public class Principal {
 				System.out.print("\n Opção inválida ");
 	
 			}
-			bib.getAlItemSorted().get(escolhaCod).setDispItem(disponibilidade);
+			bib.getAlItem().get(escolhaCod-1).setDispItem(disponibilidade);
+			
 			System.out.print("\n Deseja alterar o estado para mais algum item? digite 1 para sim ou 0 para não! ");
 			continuar = scanner.nextInt();
 
