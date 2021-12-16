@@ -1,5 +1,7 @@
 package Principal;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -258,8 +260,16 @@ public class Principal {
 	}
 
 	private static void emprestarItem(int idAmigo, int idItem){
-		if(bib.getAlItem().get(idItem).getDispItem() == Disponibilidade.DISPONIVEL ){
-			
+		Item itemEmprestado = bib.getAlItem().get(idItem-1);
+		if(itemEmprestado.getDispItem() == Disponibilidade.DISPONIVEL ){
+			itemEmprestado.setDispItem(Disponibilidade.EMPRESTADO);
+			emprestimos.addEmprestimo(idAmigo, idItem, LocalDate.now());
+
+			System.out.println(itemEmprestado.getTituloItem() + " foi emprestado para " + amigos.getListaAmigos().get(idAmigo-1).getNomeAmigo());
+
+		}
+		else{
+			System.out.println("Nao foi possivel emprestar pois o " + itemEmprestado.getName() + " esta atualmente " + itemEmprestado.getDispItem());
 		}
 
 	}
