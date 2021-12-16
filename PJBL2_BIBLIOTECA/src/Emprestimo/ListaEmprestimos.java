@@ -15,7 +15,14 @@ public class ListaEmprestimos {
 		Emprestimo emprestimo = new Emprestimo(idAmigo, idItem, dataEmprestimo);
 		alEmprestimos.add(emprestimo);
 	}
-	// construtor
-	// getters e setters
-	// toString
+
+	public ArrayList<Emprestimo> getAlEmprestimos() {
+		return alEmprestimos;
+	}
+
+	public void add(Emprestimo e1) {
+		alEmprestimos.add(e1);
+	}
+	
+
 }
