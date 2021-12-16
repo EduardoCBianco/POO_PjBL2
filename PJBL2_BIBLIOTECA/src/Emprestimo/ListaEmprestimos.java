@@ -16,8 +16,13 @@ public class ListaEmprestimos {
 		alEmprestimos.add(emprestimo);
 	}
 
+	public ArrayList<Emprestimo> getAlEmprestimos() {
+		return alEmprestimos;
+	}
 
-	// construtor
-	// getters e setters
-	// toString
+	public void add(Emprestimo e1) {
+		alEmprestimos.add(e1);
+	}
+	
+
 }

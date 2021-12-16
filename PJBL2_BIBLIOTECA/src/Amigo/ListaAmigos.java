@@ -25,6 +25,9 @@ public class ListaAmigos {
 		return alAmigos;
 	}
 
+	public Amigo getAmigo(int idAmigo){
+		return alAmigos.get(idAmigo-1);
+	}
 
 	
 

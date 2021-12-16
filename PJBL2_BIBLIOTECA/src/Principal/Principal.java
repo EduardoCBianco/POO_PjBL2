@@ -2,6 +2,7 @@ package Principal;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Principal {
 		// apenas alguns exemplos de manipula��o em rela��o a amigos
 		// da mesma forma faz com biv e emprestimos
 		// criando fun��es static na main para implementar as op��es do menu
-		
+		{
 		int idAmigo;
 		idAmigo = amigos.addAmigo("Fulano");
 		System.out.println("Adicionado com codigo " + idAmigo);
@@ -34,8 +35,13 @@ public class Principal {
 		System.out.println("Adicionado com codigo " + idAmigo);
 
 		EspecificarLivro(bib.addItem(1, "Dom Casmurro")-1, "Machado de Assis", 210);
+		EspecificarFilme(bib.addItem(2, "WALL-E")-1, "Andrew Stanton", 2008);
 		EspecificarAlbumMusica(bib.addItem(3, "Summer Eletrohits")-1, "Som Livre", 2005);
-
+		Emprestimo e1 = new Emprestimo(3, 2, LocalDate.of(2021, 10, 8));
+		emprestimos.add(e1);
+		bib.getAlItem().get(2-1).setDispItem(Disponibilidade.EMPRESTADO);
+		}
+		
 		ArrayList<Amigo> alAmigos = amigos.getListaAmigos();
 		for (Amigo amigo : alAmigos) {
 			System.out.println(amigo);
@@ -108,12 +114,17 @@ public class Principal {
 					break;
 	
 					case 4:
-					//devolucaoItem();
+					ListarItens();
+
+					System.out.println("\nDigite o ID do item que deseja devolver: ");				
+					System.out.print("Opcao: ");
+					idItem = scanner.nextInt();
+					devolverItem(idItem);
 
 					break;
 	
 					case 5:
-					//listarEmprestimos();
+					listarEmprestimos();
 	
 					break;
 					
@@ -261,7 +272,11 @@ public class Principal {
 	private static void ListarItens(){
 		
 		for (Item item : bib.getAlItem()) {
+			if(item.getDispItem() == Disponibilidade.EMPRESTADO){
+				System.out.println(item.getName() + " - " + item.getTituloItem() + " ( ID = " + item.getIdItem() + " )" + " { Situacao = " + item.getDispItem() + " }");
+			}	else{
 			System.out.println(item.getName() + " - " + item.getTituloItem() + " ( ID = " + item.getIdItem() + " )" + " { Situacao = " + item.getDispItem() + " }");
+			}
 		}
 
 	}
@@ -272,7 +287,7 @@ public class Principal {
 			itemEmprestado.setDispItem(Disponibilidade.EMPRESTADO);
 			emprestimos.addEmprestimo(idAmigo, idItem, LocalDate.now());
 
-			System.out.println(itemEmprestado.getTituloItem() + " foi emprestado para " + amigos.getListaAmigos().get(idAmigo-1).getNomeAmigo());
+			System.out.println(itemEmprestado.getTituloItem() + " foi emprestado para " + amigos.getListaAmigos().get(idAmigo-1).getNomeAmigo() + "\n");
 
 		}
 		else{
@@ -338,5 +353,30 @@ public class Principal {
 
 	}
 
-}
 
+
+	private static void devolverItem(int idItem){
+		for(Emprestimo emprestimo : emprestimos.getAlEmprestimos()){
+			if(emprestimo.getIdItem() == idItem && emprestimo.getDataDevolucao() == null){
+				Item itemEmprestado = bib.getAlItem().get(idItem-1);
+				itemEmprestado.setDispItem(Disponibilidade.DISPONIVEL);
+				emprestimo.setDataDevolucao(LocalDate.now());
+				System.out.println(itemEmprestado.getName() + " - " + itemEmprestado.getTituloItem() + " foi devolvido.");
+			} 
+
+
+		}
+	}
+
+	private static void listarEmprestimos(){
+
+		for (Emprestimo emprestimo : emprestimos.getAlEmprestimos()) {
+			if(emprestimo.getDataDevolucao() == null){
+			Amigo amigoEmprestado = emprestimo.getAmigo(emprestimo.getIdAmigo(), amigos);
+			Item itemEmprestado = emprestimo.getItem(emprestimo.getIdItem(), bib.getAlItem());
+			System.out.println(itemEmprestado.getName() + " - " + itemEmprestado.getTituloItem() + " foi emprestado para " + amigoEmprestado.getNomeAmigo() + " no dia: " + emprestimo.getDataEmprestimo().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n");
+			}
+		}
+
+	}
+}
