@@ -57,13 +57,8 @@ public class Biblioteca {
 		return alItemSorted;
 	}
 
+	public Item getItem(int idItem) {
+		return this.alItem.get(idItem);
+	}
 
-
-
-
-
-	
-	// m�todos, getters, setters, toString, compareTo etc conforme
-	// a modelagem e encapsulamento que a equipe decidir implementar
-	// v�rias op��es
 }

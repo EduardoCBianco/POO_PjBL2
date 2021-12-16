@@ -342,14 +342,27 @@ public class Principal {
 	}
 
 	private static void historicoEmprestimos(){
+		int counter = 0;
 		int escolhaCod;
-		System.out.print("\n Digite o código do item que deseja obter o histórico: \n");
-		// ListarItens();
-		// escolhaCod = scanner.nextInt() - 1;
-		// for (int i = 0; i<emprestimos.getEmprestimos().size(); i++) {
-		// 	emprestimos.getEmprestimos();
-		// 	if()
-		// }
+		ListarItens();
+		System.out.print("\n Digite o ID do item que deseja obter o histórico: \n");
+		System.out.print("Opcao: ");
+		escolhaCod = scanner.nextInt();
+		for (Emprestimo emprestimo : emprestimos.getAlEmprestimos()) {
+		 	if(emprestimo.getIdItem() == escolhaCod){
+				 counter++;
+				Amigo amigoEmprestado = emprestimo.getAmigo(emprestimo.getIdAmigo(), amigos);
+				Item itemEmprestado = emprestimo.getItem(emprestimo.getIdItem(), bib.getAlItem());
+				if(emprestimo.getDataDevolucao() != null){
+					System.out.println(itemEmprestado.getName() + " - " + itemEmprestado.getTituloItem() + " foi emprestado para " + amigoEmprestado.getNomeAmigo() + " no dia: " + emprestimo.getDataEmprestimo().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " e devolvido no dia: " + emprestimo.getDataDevolucao().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n");
+				}else{
+					System.out.println(itemEmprestado.getName() + " - " + itemEmprestado.getTituloItem() + " foi emprestado para " + amigoEmprestado.getNomeAmigo() + " no dia: " + emprestimo.getDataEmprestimo().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n");
+				}
+			 }
+		}
+		if(counter == 0){
+			System.out.println("Nao foi realizadas nenhuma movimentacao desse item.");
+		}
 
 	}
 
