@@ -1,15 +1,18 @@
 package Item;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class Biblioteca {
 
 	private String nomeBib;
 	private ArrayList<Item> alItem;
+	private ArrayList<Item> alItemSorted;
 
 	public Biblioteca(String nomeBib) {
 		this.nomeBib = nomeBib;
-		this.alItem = new ArrayList<Item>(); 
+		this.alItem = new ArrayList<Item>();
+		 
 	}
 
 	public int addItem(int escolhaItem, String tituloItem) {
@@ -47,6 +50,13 @@ public class Biblioteca {
 	public ArrayList<Item> getAlItem() {
 		return alItem;
 	}
+
+	public ArrayList<Item> getAlItemSorted() {
+		this.alItemSorted = new ArrayList<Item>(alItem);
+		Collections.sort(alItemSorted);
+		return alItemSorted;
+	}
+
 
 
 

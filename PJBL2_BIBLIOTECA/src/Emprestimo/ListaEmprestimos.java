@@ -15,6 +15,8 @@ public class ListaEmprestimos {
 		Emprestimo emprestimo = new Emprestimo(idAmigo, idItem, dataEmprestimo);
 		alEmprestimos.add(emprestimo);
 	}
+
+
 	// construtor
 	// getters e setters
 	// toString

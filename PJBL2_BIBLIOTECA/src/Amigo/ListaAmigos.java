@@ -21,6 +21,7 @@ public class ListaAmigos {
 	}
 	
 	public ArrayList<Amigo> getListaAmigos(){
+		
 		return alAmigos;
 	}
 

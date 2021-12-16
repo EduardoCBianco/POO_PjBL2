@@ -67,7 +67,8 @@ public class Principal {
 				System.out.println("4. Realizar devolucao de um item");
 				System.out.println("5. Listar emprestimos atuais");
 				System.out.println("6. Listar historico de emprestimos");
-				System.out.println("7. Listar biblioteca");				
+				System.out.println("7. Listar biblioteca");	
+				System.out.println("8. Alterar Disponibilidade");			
 				System.out.print("Opcao: ");
 		  
 				opcao = scanner.nextInt();
@@ -117,12 +118,17 @@ public class Principal {
 					break;
 					
 					case 6:
-					//historicoEmprestimos();
+					historicoEmprestimos();
 					
 					break;
 					
 					case 7:
-					//listarBiblioteca();
+					listarBiblioteca();
+					
+					break;
+
+					case 8:
+					alterarEstado();
 					
 					break;
 
@@ -134,6 +140,7 @@ public class Principal {
 				for (Amigo amigo : alAmigos) {
 					System.out.println(amigo);
 				}
+				ListarItens();
 		}
 
 	private static void cadastrarAmigo(){
@@ -178,7 +185,7 @@ public class Principal {
 
 				System.out.print("\nNumero de paginas do livro: ");
 				int totPagLivro = scanner.nextInt();
-				EspecificarLivro(idItem-1, autorLivro, totPagLivro);
+				EspecificarLivro(idItem-1, autorLivro, totPagLivro); // aqui
 				System.out.print("\nLivro adicionado com sucesso! \n");
 					return idItem;
 
@@ -237,7 +244,7 @@ public class Principal {
 
 	}
 	private static void EspecificarLivro(int idItem, String autorLivro, int totPagLivro){
-		Livro livro = (Livro) bib.getAlItem().get(idItem);
+		Livro livro = (Livro) bib.getAlItem().get(idItem); // aqui
 		livro.setAutorLivro(autorLivro);
 		livro.setTotPagLivro(totPagLivro);
 
@@ -273,5 +280,63 @@ public class Principal {
 		}
 
 	}
+	private static void listarBiblioteca(){
+		for (int i = 0; i<bib.getAlItemSorted().size(); i++) {
+			System.out.println(bib.getAlItemSorted().get(i).getName() + " - " + bib.getAlItemSorted().get(i).getTituloItem() + " ( ID = " + bib.getAlItemSorted().get(i).getIdItem() + " )" + " { Situacao = " + bib.getAlItemSorted().get(i).getDispItem() + " }");
+		}
+	}
+
+	private static void alterarEstado(){
+		int escolhaCod;
+		int escolhaDisponibilidade;
+		int continuar;
+		do{
+			System.out.print("\n Digite o código do item que deseja alterar o estado: \n");
+			ListarItens();
+			// scanner.nextInt();
+			escolhaCod = scanner.nextInt() - 1;
+			System.out.print("\n Escolha a disponibilidade: \n1 - CONSULTALOCAL  \n2 - DANIFICADO \n3 - EXTRAVIADO \n");
+			Disponibilidade disponibilidade = bib.getAlItemSorted().get(escolhaCod).getDispItem();
+			// scanner.nextInt();
+			escolhaDisponibilidade = scanner.nextInt();
+			switch(escolhaDisponibilidade){
+				case 1:
+				disponibilidade = Disponibilidade.CONSULTALOCAL;
+				break;
+				
+				case 2:
+				disponibilidade = Disponibilidade.DANIFICADO;
+				break;
+	
+				case 3:
+				disponibilidade = Disponibilidade.EXTRAVIADO;
+				break;
+	
+				default:
+				System.out.print("\n Opção inválida ");
+	
+			}
+			bib.getAlItemSorted().get(escolhaCod).setDispItem(disponibilidade);
+			System.out.print("\n Deseja alterar o estado para mais algum item? digite 1 para sim ou 0 para não! ");
+			continuar = scanner.nextInt();
+
+		}while(continuar !=0 );
+
+		
+
+	}
+
+	private static void historicoEmprestimos(){
+		int escolhaCod;
+		System.out.print("\n Digite o código do item que deseja obter o histórico: \n");
+		// ListarItens();
+		// escolhaCod = scanner.nextInt() - 1;
+		// for (int i = 0; i<emprestimos.getEmprestimos().size(); i++) {
+		// 	emprestimos.getEmprestimos();
+		// 	if()
+		// }
+
+	}
+
 }
 

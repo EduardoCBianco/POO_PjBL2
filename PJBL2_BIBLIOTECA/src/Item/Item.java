@@ -1,5 +1,5 @@
 package Item;
-public abstract class Item {
+public abstract class Item implements Comparable<Item> {
 
 	private int IdItem;
 	private String tituloItem;
@@ -33,7 +33,13 @@ public abstract class Item {
 	public String getName() {
 		return "Item";
 	}
-	
+
+	@Override
+	public int compareTo(Item item) {
+		// System.out.println("item 1" + item.getName());
+		// System.out.println("item 2" + item.getName());
+		return tituloItem.toUpperCase().compareTo(item.getTituloItem().toUpperCase());
+	}
 
 	
 }
